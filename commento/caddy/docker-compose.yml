@@ -1,0 +1,19 @@
+version: '3'
+services:
+  caddy:
+    image: "caddy:latest"
+    volumes:
+      - caddy_data:/data
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 443:443
+      - 80:80
+    networks:
+      - commento_pub_network
+
+networks:
+  commento_pub_network:
+    external: true
+
+volumes:
+  caddy_data:

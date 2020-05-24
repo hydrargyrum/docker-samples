@@ -1,0 +1,10 @@
+{
+	email you@example.com
+}
+
+# where commento will be hosted
+# not where users can view and post comments
+your-commento.example.com {
+	# "commento-server" should not be changed, it's defined in commento/docker-compose.yml
+	reverse_proxy * http://commento-server:8080
+}
