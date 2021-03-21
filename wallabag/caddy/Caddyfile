@@ -1,0 +1,9 @@
+{
+	email you@example.com
+}
+
+# where wallabag will be hosted
+your-wallabag.example.com {
+	# "wallabag_server_1" should not be changed, it's defined in wallabag/docker-compose.yml
+	reverse_proxy * http://wallabag_server_1:80
+}

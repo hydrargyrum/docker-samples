@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  server:
+    image: wallabag/wallabag
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      SYMFONY__ENV__DATABASE_DRIVER: pdo_pgsql
+      SYMFONY__ENV__DATABASE_DRIVER_CLASS: "Wallabag\\CoreBundle\\Doctrine\\DBAL\\Driver\\CustomPostgreSQLDriver"
+      SYMFONY__ENV__DATABASE_HOST: db
+      SYMFONY__ENV__DATABASE_PORT: 5432
+      SYMFONY__ENV__DATABASE_NAME: wallabag
+      SYMFONY__ENV__DATABASE_USER: postgres
+      SYMFONY__ENV__DATABASE_PASSWORD: postgres
+    env_file: conf.env
+    ports:
+      - "80"
+    depends_on:
+      - db
+    networks:
+      - db_network
+      - pub_network
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - db_network
+    volumes:
+      - postgres_data_volume:/var/lib/postgresql/data
+
+networks:
+  db_network:
+  pub_network:
+
+volumes:
+  postgres_data_volume:
